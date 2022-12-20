@@ -2,7 +2,14 @@
     <g *ngFor="let baloon of baloons" (click)="clickBaloon(baloon)">
         <g app-baloon [baloon]="baloon" (score)="scoreBaloon(baloon, $event)"></g>
     </g>
+    <g *ngFor="let prize of prizes; let index=index" [attr.transform]="transformPrize(index, prize)">
+        <g app-prize [prize]="prize"></g>
+    </g>
 </svg>
+
+<div *ngIf="showNewRound" class="fullsvg" (click)="newRound()">
+    <div app-badge-cup [score]="totalScore()"></div>
+</div>
 
 <div class="panel-menu-list bottom-right-menu">
     <div class="panel-menu-item button menu" (click)="resetGame()">

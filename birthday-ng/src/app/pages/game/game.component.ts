@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaloonCoordinates, GameBaloon } from 'src/app/models/baloon.model';
+import { BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
 import { GamesCommonService } from 'src/app/services/games-common.service';
 import { HighscoresService } from 'src/app/services/highscores.service';
 import { TickersService } from 'src/app/services/tickers.service';
@@ -11,7 +11,7 @@ import { TickersService } from 'src/app/services/tickers.service';
 })
 export class GameComponent implements OnInit {
 
-  static AUGURI = 'tantiauguri';
+  static AUGURI = 'TANTIAUGURI';
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
 
@@ -22,6 +22,7 @@ export class GameComponent implements OnInit {
 
   showHighscores: boolean;
   showFinalScore: boolean;
+  showNewRound: boolean;
 
   trails: Trails[] = [
     new Trails(topRange, bottomRange),
@@ -39,6 +40,7 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     this.showHighscores = false;
     this.showFinalScore = false;
+    this.showNewRound = true;
     this.resetGame();
   }
 
@@ -47,13 +49,15 @@ export class GameComponent implements OnInit {
   }
 
   resetGame() {
-    this.stage = 1;
+    this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
     this.prizes = [];
     this.newRound();
   }
 
   newRound() {
+    this.showNewRound = false;
+    this.stage = this.stage +1;
     this.streak = [];
     for (let index = 0; index < this.stage; index++) {
       let trail: Trails = this.trails[this.games.randomInt(0,3)];
@@ -72,6 +76,11 @@ export class GameComponent implements OnInit {
       this.baloons.push(this.games.randomPop(this.streak));
       if (this.streak.length === 0) {
         this.tickers.stop('baloons');
+        if (this.stage < GameComponent.AUGURI.length) {
+          this.tickers.once('newstage', 2000, () => {
+            this.showNewRound = true;
+          })
+        }
       }
     });
   }
@@ -98,13 +107,10 @@ export class GameComponent implements OnInit {
     }
   }
 
-}
-
-class Prize {
-  baloon: GameBaloon;
-  constructor(baloon: GameBaloon) {
-    this.baloon = baloon;
+  transformPrize(index: number, prize: Prize): string {
+    return `translate(10, ${50 + index * 5}) scale(0.15,0.15)`;
   }
+
 }
 
 class Trails {

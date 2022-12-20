@@ -6,7 +6,7 @@ export class GameBaloon {
 
     s: number = 1;
     text: string = '';
-    state: 'new'|'ready'|'empty'|'full'|'score'|'final'|'zoomed' = 'new';
+    state: 'new' | 'ready' | 'empty' | 'full' | 'score' | 'final' | 'zoomed' = 'new';
 
     picture: string;
 
@@ -33,3 +33,11 @@ export class BaloonCoordinates {
         this.y = y;
     }
 }
+
+export class Prize {
+    baloon: GameBaloon;
+    constructor(baloon: GameBaloon) {
+        this.baloon = baloon;
+    }
+}
+

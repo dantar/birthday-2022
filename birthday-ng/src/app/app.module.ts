@@ -14,6 +14,7 @@ import { HighscoreComponent } from './components/pages/highscore/highscore.compo
 import { BadgeCupComponent } from './components/badge-cup/badge-cup.component';
 import { ResetGameComponent } from './components/reset-game/reset-game.component';
 import { TileFlipComponent } from './components/tile-flip/tile-flip.component';
+import { PrizeComponent } from './components/prize/prize.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TileFlipComponent } from './components/tile-flip/tile-flip.component';
     HighscoreComponent,
     BadgeCupComponent,
     ResetGameComponent,
-    TileFlipComponent
+    TileFlipComponent,
+    PrizeComponent
   ],
   imports: [
     HttpClientModule,
