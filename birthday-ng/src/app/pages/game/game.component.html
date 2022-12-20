@@ -1,0 +1,25 @@
+<svg class="fullsvg" viewBox="0 0 100 100">
+    <g *ngFor="let baloon of baloons" (click)="clickBaloon(baloon)">
+        <g app-baloon [baloon]="baloon" (score)="scoreBaloon(baloon, $event)"></g>
+    </g>
+</svg>
+
+<div class="panel-menu-list bottom-right-menu">
+    <div class="panel-menu-item button menu" (click)="resetGame()">
+        <div app-reset-game></div>
+    </div>
+</div>
+
+<div [@finalscore] *ngIf="showFinalScore" class="fullsvg" (click)="showFinalScore = false; showHighscores = true">
+    <div app-badge-cup [score]="totalScore()"></div>
+</div>
+
+<div *ngIf="showHighscores">
+    <div app-highscore></div>
+</div>
+
+<div class="panel-menu-list top-left-menu">
+    <div class="panel-menu-item button menu" (click)="toggleHighscores()">
+        <div app-badge-cup [score]="totalScore()"></div>
+    </div>
+</div>

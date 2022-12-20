@@ -1,1 +1,125 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'AR JULIAN';
+    src: url('./assets/ar-julian.ttf') format("truetype");
+    font-weight:300;
+}
+
+h1 {
+    font-family: 'AR JULIAN';
+}
+
+.fullpage {
+    background-color: rgba(256,256,256,0.5);
+}
+
+div.fullsvg svg {
+    position:fixed; 
+    top:0; 
+    left:0; 
+    height:100%; 
+    width:100%;
+}
+
+
+.highscore {
+    font-family: 'AR JULIAN';
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 30px;
+    svg {
+        height: 80px;
+        width: 80px;
+    }
+    .player {
+        width: 100%;
+        color: #0000aa;
+    }
+    &.your-true {
+        font-size: 2em;
+        font-weight: bold;
+        svg {
+            height: 160px;
+            width: 160px;
+        }
+    }
+}
+
+@media screen and (orientation:portrait) {
+    .panel-menu-list {
+        height: 100px;
+    }
+    .fullpage {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media screen and (orientation:landscape) {
+    .panel-menu-list {
+        width: 100px;
+    }
+}
+
+span.button {
+    cursor: pointer;
+    background-color: #ff6600;
+    padding: 0px 5px;
+}
+
+.panel-menu-list {
+    svg {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.all-done-true {
+    .points {
+        display: none;
+    }
+}
+
+.state-new {
+    .points {
+        display: none;
+    }
+}
+
+.state-empty {
+    .colorfill {
+        display: none;
+    }
+}
+.state-full {
+    .colorfill {
+        display: none;
+    }
+}
+.state-ready {
+    .colorfill {
+        display: none;
+    }
+}
+.state-final {
+    .colorfill {
+        display: none;
+    }
+}
+.state-score {
+    .colorfill {
+        display: none;
+    }
+}
+.state-zoomed {
+    .colorfill {
+        display: none;
+    }
+    .points {
+        display: none;
+    }
+    .shadows {
+        display: none;
+    }
+}

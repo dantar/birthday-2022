@@ -1,0 +1,2 @@
+<svg:g [attr.transform]="transform()">
+</svg:g>

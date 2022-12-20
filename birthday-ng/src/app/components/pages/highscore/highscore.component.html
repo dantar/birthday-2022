@@ -1,0 +1,19 @@
+<div class="fullpage">
+    <div>
+        <h1>Classifica!</h1>
+        <div class="highscore your-{{score.key === hs.highscores.key}}" *ngFor="let score of hs.highscores.highscores">
+            <div *ngIf="(score.key != hs.highscores.key) && score.player">
+                <div app-badge-cup [score]="score.score"></div>
+                <div class="player">{{score.player}}</div>
+            </div>
+            <div #yourscore *ngIf="score.key === hs.highscores.key">
+                <div app-badge-cup [score]="score.score"></div>
+                <div *ngIf="edit">
+                    <input class="playername" [(ngModel)]="hs.highscores.player" (keyup.enter)="enterPlayer()" (focusout)="enterPlayer()">
+                </div>
+                <div *ngIf="!edit" class="player" (click)="edit = true">{{hs.highscores.player}}</div>
+            </div>
+        </div>
+        <div *ngIf="hs.highscores.highscores.length === 0">Nessuna classifica, per adesso...</div>
+    </div>
+</div>
