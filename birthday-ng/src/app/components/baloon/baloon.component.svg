@@ -1,4 +1,4 @@
-<svg:g [attr.transform]="translate()">
+<svg:g [attr.transform]="transform()">
 
   <svg:defs
      id="defs824">

@@ -1,0 +1,49 @@
+<svg:g>
+    <svg:defs>
+        <svg:g id="g900" transform="translate(-66.929044,-100.73298)">
+            <svg:path id="rect878" style="opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" d="m -161.38965,-32.85386 a 16.876848,16.876848 0 0 0 -16.87695,16.876953 16.876848,16.876848 0 0 0 1.28711,6.464844 h -5.00977 c -7.30973,0 -13.19531,5.885585 -13.19531,13.195313 0,7.309727 5.88558,13.193359 13.19531,13.193359 h 52.54492 c 7.30973,0 13.19336,-5.883632 13.19336,-13.193359 0,-7.309728 -5.88363,-13.195313 -13.19336,-13.195313 h -0.16797 a 10.226833,10.226833 0 0 0 0.83399,-4.042969 10.226833,10.226833 0 0 0 -10.22657,-10.226562 10.226833,10.226833 0 0 0 -6.43945,2.28125 16.876848,16.876848 0 0 0 -15.94531,-11.353516 z" />
+            <svg:path style="opacity:1;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" d="m -143.92215,-21.782115 c 5.64791,1.51e-4 10.22641,4.578651 10.22656,10.226562 -2.8e-4,1.390335 -0.23203,4.303644 -0.78195,5.5806 h 0.16797 c 7.30973,0 13.19336,5.885584 13.19336,13.195312 0,3.311472 -1.21624,6.323081 -3.2168,8.634766 4.75584,-1.989721 8.08203,-6.677117 8.08203,-12.171875 0,-7.309728 -5.88363,-13.195313 -13.19336,-13.195313 h -0.16797 c 0.54993,-1.276955 0.8337,-2.652632 0.83399,-4.042968 -1.5e-4,-5.647916 -4.57865,-10.226418 -10.22657,-10.226563 -2.34452,-1.9e-4 -4.61791,0.805187 -6.43945,2.28125 z" id="path885" />
+            <svg:path id="path895" style="opacity:1;fill:none;fill-opacity:0.5;stroke:#cccccc;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" d="m -161.38965,-32.85386 a 16.876848,16.876848 0 0 0 -16.87695,16.876953 16.876848,16.876848 0 0 0 1.28711,6.464844 h -5.00977 c -7.30973,0 -13.19531,5.885585 -13.19531,13.195313 0,7.309727 5.88558,13.193359 13.19531,13.193359 h 52.54492 c 7.30973,0 13.19336,-5.883632 13.19336,-13.193359 0,-7.309728 -5.88363,-13.195313 -13.19336,-13.195313 h -0.16797 a 10.226833,10.226833 0 0 0 0.83399,-4.042969 10.226833,10.226833 0 0 0 -10.22657,-10.226562 10.226833,10.226833 0 0 0 -6.43945,2.28125 16.876848,16.876848 0 0 0 -15.94531,-11.353516 z" />
+        </svg:g>
+    </svg:defs>
+    <svg:g id="clouds">
+        <svg:use x="0" y="0" xlink:href="#g900" id="use946" transform="translate(230.46691,33.069514)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use930" transform="translate(261.9414,42.114172)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use932" transform="translate(291.6912,34.206148)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use934" transform="translate(333.84922,45.340372)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use936" transform="translate(240.61144,54.899592)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use938" transform="translate(293.71874,65.455972)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use940" transform="translate(330.22301,86.28876)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use942" transform="translate(260.90575,81.939276)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use944" transform="translate(217.69863,88.999722)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use902" transform="translate(186.16348,100.988)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use948" transform="translate(126.6081,115.28344)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use904" transform="translate(191.44278,126.35519)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use906" transform="translate(158.38544,138.62524)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use950" transform="translate(111.53842,156.69109)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use908" transform="translate(186.33059,155.30087)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use910" transform="translate(179.49677,175.98071)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use912" transform="translate(199.90505,205.01381)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use952" transform="translate(116.81772,182.05828)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use954" transform="translate(154.41854,212.64861)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use956" transform="translate(362.00035,109.63056)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use966" transform="translate(408.9166,120.43838)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use958" transform="translate(358.4667,128.62773)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use968" transform="translate(414.1959,145.80557)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use960" transform="translate(363.746,153.99492)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use962" transform="translate(357.09371,175.04621)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use970" transform="translate(408.04509,184.11316)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use974" transform="translate(455.41227,184.11316)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use972" transform="translate(428.11835,208.20514)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use964" transform="translate(362.37301,200.4134)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use1137" transform="translate(303.50979,229.57269)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use914" transform="translate(252.55153,230.381)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use916" transform="translate(274.97373,232.101)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use918" transform="translate(324.45935,233.6072)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use920" transform="translate(231.22157,243.16642)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use922" transform="translate(284.32887,253.7228)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use924" transform="translate(319.35797,271.18196)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use926" transform="translate(251.27153,265.99285)" width="100%" height="100%" />
+        <svg:use x="0" y="0" xlink:href="#g900" id="use928" transform="translate(208.30876,277.26655)" width="100%" height="100%" />
+    </svg:g>
+</svg:g>

@@ -39,8 +39,8 @@ export class BaloonComponent implements OnInit {
     this.tickers.stop('deflate');
   }
 
-  translate(): string {
-    return `translate(${this.position.values['x'].value},${this.position.values['y'].value}) scale(0.2,0.2)`;
+  transform(): string {
+    return `translate(${this.position.values['x'].value},${this.position.values['y'].value}) scale(0.15,0.15)`;
   }
 
 }

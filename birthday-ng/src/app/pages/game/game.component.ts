@@ -15,6 +15,7 @@ export class GameComponent implements OnInit {
   static AUGURI = 'TANTIAUGURI';
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
+  collected: GameBaloon[];
 
   stage: number;
   auguri: string[];
@@ -48,7 +49,7 @@ export class GameComponent implements OnInit {
   }
 
   totalScore(): number {
-    return 100;
+    return this.score;
   }
 
   resetGame() {
@@ -56,6 +57,7 @@ export class GameComponent implements OnInit {
     this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
     this.prizes = [];
+    this.collected = [];
     this.newRound();
   }
 
@@ -66,13 +68,18 @@ export class GameComponent implements OnInit {
     this.streak = [];
     for (let index = 0; index < this.stage; index++) {
       let trail: Trails = this.trails[this.games.randomInt(0,3)];
-      this.streak.push(new GameBaloon(
+      let baloon = new GameBaloon(
         this.randomCoordinate(trail.start), 
         this.randomCoordinate(trail.finish), 
-        this.games.randomInt(4000, 8000))
-        .setText(index === 0 ? GameComponent.AUGURI.substring(this.stage, this.stage +1) : '')
+        this.games.randomInt(4000, 8000));
+      if (index === 0) {
+        baloon
+        .setText(GameComponent.AUGURI.substring(this.stage, this.stage +1))
         .setScore(10)
-        );      
+      } else {
+        baloon.setScore(1)
+      }
+      this.streak.push(baloon);      
     }
     this.startRound();
   }
@@ -112,6 +119,7 @@ export class GameComponent implements OnInit {
     this.audio.play('pop');
     this.score = this.score + baloon.score;
     this.baloons.splice(this.baloons.indexOf(baloon), 1);
+    this.collected.push(baloon);
     if (baloon.text != '') {
       this.prizes.push(new Prize(baloon));
     }
