@@ -1,28 +1,28 @@
 <svg:g [attr.transform]="translate()">
 
-  <defs
+  <svg:defs
      id="defs824">
-    <clipPath
+    <svg:clipPath
        id="clipPath842"
        clipPathUnits="userSpaceOnUse">
-      <ellipse
+      <svg:ellipse
          style="opacity:1;vector-effect:none;fill:#ff6600;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
          id="ellipse844"
          cx="0"
          cy="0"
          rx="44.191624"
          ry="50" />
-    </clipPath>
-  </defs>
+    </svg:clipPath>
+  </svg:defs>
 
-  <g
+  <svg:g
      class="baloon"
      id="g1413">
-    <path
+    <svg:path
        id="path827"
        d="m -7.197337,59.467629 c 4.2034273,-3.779213 5.2657713,-3.851607 4.9244938,-10.227794 l 4.7982245,0.252539 c 0.6108677,4.287745 2.0884838,5.296777 0.1262691,10.227793 -7.010798,2.194559 -6.7804758,0.838142 -9.8489874,-0.252538 z"
        style="fill:#ff6600;fill-opacity:1;stroke:#aa4400;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <ellipse
+    <svg:ellipse
        class="colorfill"
        style="vector-effect:none;fill:#ff6600;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        id="ellipse945"
@@ -30,47 +30,47 @@
        cy="0"
        rx="44.191624"
        ry="50" />
-    <ellipse
+    <svg:ellipse
        ry="50"
        rx="44.191624"
        cy="0"
        cx="0"
        id="circle825"
        style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#aa4400;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
-    <path
+    <svg:path
        class="shadows"
        style="opacity:0.25;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        d="M 35.150391,-30.236328 A 44.191624,50 0 0 1 40.621094,-6.25 44.191624,50 0 0 1 -3.5722656,43.75 44.191624,50 0 0 1 -38.726562,23.978516 44.191624,50 0 0 0 0,50 44.191624,50 0 0 0 44.191406,0 44.191624,50 0 0 0 35.150391,-30.236328 Z"
        id="ellipse851" />
-    <g
+    <svg:g
        class="points"
        id="g908">
-      <text
+      <svg:text
          id="text835"
          y="26.788397"
          x="0.14148159"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.07614899px;line-height:1.25;font-family:'AR JULIAN';-inkscape-font-specification:'AR JULIAN, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
-         xml:space="preserve"><tspan
+         xml:space="preserve"><svg:tspan
            y="26.788397"
            x="0.14148231"
            id="tspan833"
-           style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">{{baloon.text}}</tspan></text>
-      <text
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">{{baloon.text}}</svg:tspan></svg:text>
+      <svg:text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.07614899px;line-height:1.25;font-family:'AR JULIAN';-inkscape-font-specification:'AR JULIAN, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#0000aa;fill-opacity:1;stroke:none;stroke-width:0.9385199"
          x="0.14148159"
          y="26.788397"
-         id="text1406"><tspan
+         id="text1406"><svg:tspan
            style="fill:#0000aa;stroke-width:0.9385199"
            id="tspan1404"
            x="0.14148231"
-           y="26.788397">{{baloon.text}}</tspan></text>
-    </g>
-    <path
+           y="26.788397">{{baloon.text}}</svg:tspan></svg:text>
+    </svg:g>
+    <svg:path
        class="shadows"
        style="opacity:0.45;fill:#ffffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -5.6530096,-35.631344 c -3.3202018,-3.4628 -6.8382254,-6.589304 -12.5000004,-6.071429 -9.639,8.070297 -15.993036,27.412571 -16.428571,39.8214283 4.57346,-12.3743463 8.940271,-21.6378793 28.9285714,-33.7499993 z"
        id="path857" />
-  </g>
+  </svg:g>
 
 </svg:g>

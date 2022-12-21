@@ -1,6 +1,6 @@
 <svg class="fullsvg" viewBox="0 0 100 100">
     <g *ngFor="let baloon of baloons" (click)="clickBaloon(baloon)">
-        <g app-baloon [baloon]="baloon" (score)="scoreBaloon(baloon, $event)"></g>
+        <g app-baloon [baloon]="baloon"></g>
     </g>
     <g *ngFor="let prize of prizes; let index=index" [attr.transform]="transformPrize(index, prize)">
         <g app-prize [prize]="prize"></g>

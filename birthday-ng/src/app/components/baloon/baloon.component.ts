@@ -28,8 +28,8 @@ export class BaloonComponent implements OnInit {
     this.position.go(this.baloon.time);
   }
 
-  clickBaloon() {
-    console.log('click.baloon', this.baloon.state);
+  clickBaloon(event: any) {
+    console.log('click.baloon', event);
   }
 
   fixBaloon() {

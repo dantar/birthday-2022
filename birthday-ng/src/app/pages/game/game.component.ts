@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
+import { AudioPlayService } from 'src/app/services/audio-play.service';
 import { GamesCommonService } from 'src/app/services/games-common.service';
 import { HighscoresService } from 'src/app/services/highscores.service';
 import { TickersService } from 'src/app/services/tickers.service';
@@ -19,10 +20,11 @@ export class GameComponent implements OnInit {
   auguri: string[];
   prizes: Prize[];
 
-
   showHighscores: boolean;
   showFinalScore: boolean;
   showNewRound: boolean;
+
+  score: number;
 
   trails: Trails[] = [
     new Trails(topRange, bottomRange),
@@ -35,6 +37,7 @@ export class GameComponent implements OnInit {
     public highscores: HighscoresService,
     public games: GamesCommonService,
     public tickers: TickersService,
+    public audio: AudioPlayService,
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +52,7 @@ export class GameComponent implements OnInit {
   }
 
   resetGame() {
+    this.score = 0;
     this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
     this.prizes = [];
@@ -56,6 +60,7 @@ export class GameComponent implements OnInit {
   }
 
   newRound() {
+    this.baloons = [];
     this.showNewRound = false;
     this.stage = this.stage +1;
     this.streak = [];
@@ -64,8 +69,9 @@ export class GameComponent implements OnInit {
       this.streak.push(new GameBaloon(
         this.randomCoordinate(trail.start), 
         this.randomCoordinate(trail.finish), 
-        this.games.randomInt(1500, 3200))
+        this.games.randomInt(4000, 8000))
         .setText(index === 0 ? GameComponent.AUGURI.substring(this.stage, this.stage +1) : '')
+        .setScore(10)
         );      
     }
     this.startRound();
@@ -73,16 +79,21 @@ export class GameComponent implements OnInit {
 
   startRound() {
     this.tickers.loop('baloons', 200, ()=>{
-      this.baloons.push(this.games.randomPop(this.streak));
+      let baloon = this.games.randomPop(this.streak);
+      this.baloons.push(baloon);
       if (this.streak.length === 0) {
         this.tickers.stop('baloons');
-        if (this.stage < GameComponent.AUGURI.length) {
-          this.tickers.once('newstage', 2000, () => {
-            this.showNewRound = true;
-          })
-        }
+        this.delayToNewStage(baloon.time);
       }
     });
+  }
+
+  delayToNewStage(time: number) {
+    if (!this.showNewRound && this.stage < GameComponent.AUGURI.length) {
+      this.tickers.once('newstage', time + 300, () => {
+        this.showNewRound = true;
+      })
+    }
   }
 
   randomCoordinate(range: Range): BaloonCoordinates {
@@ -97,13 +108,15 @@ export class GameComponent implements OnInit {
     this.showHighscores = !this.showHighscores;
   }
 
-  scoreBaloon(baloon: GameBaloon, event: any) {
-    console.log(baloon);
-  }
-
   clickBaloon(baloon: GameBaloon) {
+    this.audio.play('pop');
+    this.score = this.score + baloon.score;
+    this.baloons.splice(this.baloons.indexOf(baloon), 1);
     if (baloon.text != '') {
       this.prizes.push(new Prize(baloon));
+    }
+    if (this.baloons.length === 0) {
+      this.delayToNewStage(0);
     }
   }
 

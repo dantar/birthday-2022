@@ -4,6 +4,7 @@ export class GameBaloon {
     finish: BaloonCoordinates;
     time: number;
 
+    score: number;
     s: number = 1;
     text: string = '';
     state: 'new' | 'ready' | 'empty' | 'full' | 'score' | 'final' | 'zoomed' = 'new';
@@ -16,10 +17,16 @@ export class GameBaloon {
         this.time = time;
         this.text = '';
         this.state = 'new';
+        this.score = 0;
     }
 
     setText(text: string): GameBaloon {
         this.text = text;
+        return this;
+    }
+
+    setScore(score: number): GameBaloon {
+        this.score = score;
         return this;
     }
 

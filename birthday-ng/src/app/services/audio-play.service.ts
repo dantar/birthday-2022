@@ -10,7 +10,7 @@ export class AudioPlayService {
 
   constructor() {
     this.audios = {};
-    this.register('inflating', 'assets/inflating.ogg');
+    this.register('pop', 'assets/pop.ogg');
     this.register('deflating', 'assets/deflating.ogg');
   }
 
