@@ -13,6 +13,7 @@ import { TickersService } from 'src/app/services/tickers.service';
 export class GameComponent implements OnInit {
 
   static AUGURI = 'TANTIAUGURI';
+  tantiauguri: string;
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
   collected: GameBaloon[];
@@ -53,6 +54,7 @@ export class GameComponent implements OnInit {
   }
 
   resetGame() {
+    this.tantiauguri = '';
     this.score = 0;
     this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
@@ -74,10 +76,10 @@ export class GameComponent implements OnInit {
         this.games.randomInt(4000, 8000));
       if (index === 0) {
         baloon
-        .setText(GameComponent.AUGURI.substring(this.stage, this.stage +1))
-        .setScore(10)
+        .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
+        .setScore(10);
       } else {
-        baloon.setScore(1)
+        baloon.setScore(1);
       }
       this.streak.push(baloon);      
     }
@@ -121,6 +123,7 @@ export class GameComponent implements OnInit {
     this.baloons.splice(this.baloons.indexOf(baloon), 1);
     this.collected.push(baloon);
     if (baloon.text != '') {
+      this.tantiauguri = this.tantiauguri + baloon.text;
       this.prizes.push(new Prize(baloon));
     }
     if (this.baloons.length === 0) {

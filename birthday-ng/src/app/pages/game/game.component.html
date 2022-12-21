@@ -3,10 +3,7 @@
     <g *ngFor="let baloon of baloons" (click)="clickBaloon(baloon)">
         <g app-baloon [baloon]="baloon"></g>
     </g>
-    <g *ngFor="let prize of prizes; let index=index" [attr.transform]="transformPrize(index, prize)">
-        <g app-prize [prize]="prize"></g>
-    </g>
-    <g app-clouds></g>
+    <g app-clouds [tantiauguri]="tantiauguri"></g>
 
 </svg>
 

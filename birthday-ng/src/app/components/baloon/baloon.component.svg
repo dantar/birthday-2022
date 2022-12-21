@@ -18,30 +18,18 @@
   <svg:g
      class="baloon"
      id="g1413">
-    <svg:path
-       id="path827"
-       d="m -7.197337,59.467629 c 4.2034273,-3.779213 5.2657713,-3.851607 4.9244938,-10.227794 l 4.7982245,0.252539 c 0.6108677,4.287745 2.0884838,5.296777 0.1262691,10.227793 -7.010798,2.194559 -6.7804758,0.838142 -9.8489874,-0.252538 z"
-       style="fill:#ff6600;fill-opacity:1;stroke:#aa4400;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <svg:ellipse
-       class="colorfill"
-       style="vector-effect:none;fill:#ff6600;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-       id="ellipse945"
-       cx="0"
-       cy="0"
-       rx="44.191624"
-       ry="50" />
-    <svg:ellipse
-       ry="50"
-       rx="44.191624"
-       cy="0"
-       cx="0"
-       id="circle825"
-       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#aa4400;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
-    <svg:path
-       class="shadows"
-       style="opacity:0.25;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-       d="M 35.150391,-30.236328 A 44.191624,50 0 0 1 40.621094,-6.25 44.191624,50 0 0 1 -3.5722656,43.75 44.191624,50 0 0 1 -38.726562,23.978516 44.191624,50 0 0 0 0,50 44.191624,50 0 0 0 44.191406,0 44.191624,50 0 0 0 35.150391,-30.236328 Z"
-       id="ellipse851" />
+      <svg:circle
+         style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.38171;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke; opacity:0.1"
+         id="path2365"
+         cx="0"
+         cy="0"
+         r="50" />
+      <svg:circle
+         style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.38171;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="path2365"
+         cx="0"
+         cy="0"
+         r="50" />
     <svg:g
        class="points"
        id="g908">
