@@ -7,6 +7,7 @@ export class GameBaloon {
     score: number;
     s: number = 1;
     text: string = '';
+    icon: string = '';
     state: 'new' | 'ready' | 'empty' | 'full' | 'score' | 'final' | 'zoomed' = 'new';
 
     picture: string;
@@ -16,12 +17,18 @@ export class GameBaloon {
         this.finish = finish;
         this.time = time;
         this.text = '';
+        this.icon = '';
         this.state = 'new';
         this.score = 0;
     }
 
     setText(text: string): GameBaloon {
         this.text = text;
+        return this;
+    }
+
+    setIcon(text: string): GameBaloon {
+        this.icon = text;
         return this;
     }
 

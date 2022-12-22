@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaloonComponent } from 'src/app/components/baloon/baloon.component';
 import { BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
 import { GamesCommonService } from 'src/app/services/games-common.service';
@@ -16,7 +17,7 @@ export class GameComponent implements OnInit {
   tantiauguri: string;
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
-  collected: GameBaloon[];
+  collected: ScoredBaloon[];
 
   stage: number;
   auguri: string[];
@@ -59,11 +60,11 @@ export class GameComponent implements OnInit {
     this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
     this.prizes = [];
-    this.collected = [];
     this.newRound();
   }
 
   newRound() {
+    this.collected = [];
     this.baloons = [];
     this.showNewRound = false;
     this.stage = this.stage +1;
@@ -79,7 +80,13 @@ export class GameComponent implements OnInit {
         .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
         .setScore(10);
       } else {
-        baloon.setScore(1);
+        if (index % 2 === 0) {
+          baloon.setIcon('rain');
+          baloon.setScore(-2);
+        } else {
+          baloon.setIcon('sun');
+          baloon.setScore(1);
+        }
       }
       this.streak.push(baloon);      
     }
@@ -117,11 +124,13 @@ export class GameComponent implements OnInit {
     this.showHighscores = !this.showHighscores;
   }
 
-  clickBaloon(baloon: GameBaloon) {
+  clickBaloon(event: BaloonComponent) {
+    let baloon = event.baloon;
     this.audio.play('pop');
     this.score = this.score + baloon.score;
     this.baloons.splice(this.baloons.indexOf(baloon), 1);
-    this.collected.push(baloon);
+    this.collected.push(new ScoredBaloon(baloon.score, 
+      new BaloonCoordinates(event.position.values['x'].value, event.position.values['y'].value)));
     if (baloon.text != '') {
       this.tantiauguri = this.tantiauguri + baloon.text;
       this.prizes.push(new Prize(baloon));
@@ -135,6 +144,15 @@ export class GameComponent implements OnInit {
     return `translate(10, ${50 + index * 5}) scale(0.15,0.15)`;
   }
 
+}
+
+class ScoredBaloon {
+  score: number;
+  position: BaloonCoordinates;
+  constructor(score: number, position: BaloonCoordinates) {
+    this.score = score;
+    this.position = position;
+  }
 }
 
 class Trails {

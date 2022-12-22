@@ -1,7 +1,7 @@
 <svg class="fullsvg" viewBox="0 0 100 100">
 
-    <g *ngFor="let baloon of baloons" (click)="clickBaloon(baloon)">
-        <g app-baloon [baloon]="baloon"></g>
+    <g *ngFor="let baloon of baloons" >
+        <g app-baloon [baloon]="baloon" (score)="clickBaloon($event)"></g>
     </g>
     <g app-clouds [tantiauguri]="tantiauguri"></g>
 

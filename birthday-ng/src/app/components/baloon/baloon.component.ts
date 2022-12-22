@@ -12,7 +12,7 @@ import { MoveFromTo } from 'src/app/models/animate.model';
 export class BaloonComponent implements OnInit {
 
   @Input() baloon: GameBaloon;
-  @Output() score = new EventEmitter<number>();
+  @Output() score = new EventEmitter<BaloonComponent>();
 
   position: MoveFromTo;
 
@@ -29,7 +29,7 @@ export class BaloonComponent implements OnInit {
   }
 
   clickBaloon(event: any) {
-    console.log('click.baloon', event);
+    this.score.emit(this);
   }
 
   fixBaloon() {
