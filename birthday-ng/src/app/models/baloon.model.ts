@@ -40,6 +40,11 @@ export class GameBaloon {
         return this;
     }
 
+    setPattern(pattern: string): GameBaloon {
+        this.pattern = pattern;
+        return this;
+    }
+
 }
 
 export class BaloonCoordinates {

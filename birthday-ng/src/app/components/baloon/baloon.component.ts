@@ -3,6 +3,7 @@ import { GameBaloon } from 'src/app/models/baloon.model';
 import { TickersService } from 'src/app/services/tickers.service';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
 import { MoveFromTo, StateFromTo, TimedState } from 'src/app/models/animate.model';
+import { endWith } from 'rxjs';
 
 @Component({
   selector: '[app-baloon]',
@@ -37,8 +38,26 @@ export class BaloonComponent implements OnInit {
 
   stateFromPattern(pattern: string): StateFromTo {
     let state = new StateFromTo(this.tickers);
-    state.add(new TimedState(this.baloon.time / 2, 'shown'));
-    state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+    switch (pattern) {
+      case 'hidden-shown-hidden':
+        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
+        state.add(new TimedState(this.baloon.time / 3, 'shown'));
+        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
+        break;
+      case 'shown-hidden-shown':
+        state.add(new TimedState(this.baloon.time / 3, 'shown'));
+        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
+        state.add(new TimedState(this.baloon.time / 3, 'shown'));
+        break;
+      case 'hidden-first':
+        state.add(new TimedState(this.baloon.time / 2, 'shown'));
+        state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+        break;
+      case 'shown-first':
+      default:
+        state.add(new TimedState(this.baloon.time / 2, 'shown'));
+        state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+    }
     return state
   }
 

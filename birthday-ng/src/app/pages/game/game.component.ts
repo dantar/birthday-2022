@@ -18,6 +18,7 @@ export class GameComponent implements OnInit {
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
   collected: ScoredBaloon[];
+  patterns: string[];
 
   stage: number;
   auguri: string[];
@@ -44,6 +45,7 @@ export class GameComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.patterns = ['shown-first', 'hidden-first', 'shown-hidden-shown', 'hidden-shown-hidden'];
     this.showHighscores = false;
     this.showFinalScore = false;
     this.showNewRound = true;
@@ -77,9 +79,11 @@ export class GameComponent implements OnInit {
         this.games.randomInt(4000, 8000));
       if (index === 0) {
         baloon
+        .setPattern(this.patterns[0])
         .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
         .setScore(10);
       } else {
+        baloon.setPattern(this.patterns[this.games.randomInt(0, this.patterns.length-1)]);
         if (index % 2 === 0) {
           baloon.setIcon('rain');
           baloon.setScore(-2);
