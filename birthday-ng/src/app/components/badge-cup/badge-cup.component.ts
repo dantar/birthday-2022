@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BadgeCupComponent implements OnInit {
 
   @Input() score: number;
+  @Input() sign = false;
 
   constructor() { }
 

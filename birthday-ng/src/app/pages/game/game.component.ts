@@ -72,29 +72,44 @@ export class GameComponent implements OnInit {
     this.stage = this.stage +1;
     this.streak = [];
     for (let index = 0; index < this.stage; index++) {
-      let trail: Trails = this.trails[this.games.randomInt(0,3)];
-      let baloon = new GameBaloon(
-        this.randomCoordinate(trail.start), 
-        this.randomCoordinate(trail.finish), 
-        this.games.randomInt(4000, 8000));
       if (index === 0) {
-        baloon
-        .setPattern(this.patterns[0])
-        .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
-        .setScore(10);
+        this.streak.push(this.addTextBaloon());
       } else {
-        baloon.setPattern(this.patterns[this.games.randomInt(0, this.patterns.length-1)]);
-        if (index % 2 === 0) {
-          baloon.setIcon('rain');
-          baloon.setScore(-2);
-        } else {
-          baloon.setIcon('sun');
-          baloon.setScore(1);
-        }
+        this.streak.push(this.addSunBaloon());
+        this.streak.push(this.addRainBaloon());
       }
-      this.streak.push(baloon);      
     }
+    this.games.shuffle(this.streak);
     this.startRound();
+  }
+
+  aNewBaloon(): GameBaloon {
+    let trail: Trails = this.trails[this.games.randomInt(0,3)];
+    return new GameBaloon(
+      this.randomCoordinate(trail.start), 
+      this.randomCoordinate(trail.finish), 
+      this.games.randomInt(6000, 8000))
+      .setPattern(this.patterns[this.games.randomInt(0,this.patterns.length-1)])
+      ;
+  }
+
+  addTextBaloon(): GameBaloon {
+    return this.aNewBaloon()
+    .setPattern(this.patterns[0])
+    .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
+    .setScore(5);
+  }
+
+  addSunBaloon(): GameBaloon {
+    return this.aNewBaloon()
+      .setIcon('sun')
+      .setScore(1);
+  }
+
+  addRainBaloon(): GameBaloon {
+    return this.aNewBaloon()
+      .setIcon('rain')
+      .setScore(-2);
   }
 
   startRound() {
@@ -139,7 +154,8 @@ export class GameComponent implements OnInit {
     }
     this.baloons.splice(this.baloons.indexOf(baloon), 1);
     this.collected.push(new ScoredBaloon(baloon.score, 
-      new BaloonCoordinates(event.position.values['x'].value, event.position.values['y'].value)));
+      new BaloonCoordinates(event.position.values['x'].value, event.position.values['y'].value))
+      );
     if (baloon.text != '') {
       this.tantiauguri = this.tantiauguri + baloon.text;
       this.prizes.push(new Prize(baloon));
@@ -159,6 +175,10 @@ export class GameComponent implements OnInit {
 
   transformPrize(index: number, prize: Prize): string {
     return `translate(10, ${50 + index * 5}) scale(0.15,0.15)`;
+  }
+
+  transformCollected(item: ScoredBaloon): string {
+    return `translate(${item.position.x},${item.position.y}) scale(0.15,0.15) translate(-50,-50)`;
   }
 
 }

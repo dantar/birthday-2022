@@ -1,5 +1,14 @@
 <svg class="fullsvg" viewBox="0 0 100 100">
 
+    <g *ngFor="let item of collected" [attr.transform]="transformCollected(item)">
+        <svg:g app-badge-cup [sign]="true" [score]="item.score"></svg:g>
+    </g>
+
+
+    <g *ngFor="let baloon of baloons" >
+        <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
+    </g>
+
     <g *ngFor="let baloon of baloons" >
         <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
     </g>
@@ -8,7 +17,9 @@
 </svg>
 
 <div *ngIf="showNewRound" class="fullsvg" (click)="newRound()">
-    <div app-badge-cup [score]="totalScore()"></div>
+    <svg viewBox="0 0 100 100">
+        <svg:g app-badge-cup [score]="totalScore()"></svg:g>
+    </svg>
 </div>
 
 <div class="panel-menu-list bottom-right-menu">
@@ -18,7 +29,9 @@
 </div>
 
 <div [@finalscore] *ngIf="showFinalScore" class="fullsvg" (click)="showFinalScore = false; showHighscores = true">
-    <div app-badge-cup [score]="totalScore()"></div>
+    <svg viewBox="0 0 100 100">
+        <svg:g app-badge-cup [score]="totalScore()"></svg:g>
+    </svg>
 </div>
 
 <div *ngIf="showHighscores">
@@ -27,6 +40,8 @@
 
 <div class="panel-menu-list top-left-menu">
     <div class="panel-menu-item button menu" (click)="toggleHighscores()">
-        <div app-badge-cup [score]="totalScore()"></div>
+        <svg viewBox="0 0 100 100">
+            <svg:g app-badge-cup [score]="totalScore()"></svg:g>
+        </svg>
     </div>
 </div>

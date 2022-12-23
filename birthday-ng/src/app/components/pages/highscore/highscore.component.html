@@ -3,11 +3,15 @@
         <h1>Classifica!</h1>
         <div class="highscore your-{{score.key === hs.highscores.key}}" *ngFor="let score of hs.highscores.highscores">
             <div *ngIf="(score.key != hs.highscores.key) && score.player">
-                <div app-badge-cup [score]="score.score"></div>
+                <svg viewBox="0 0 100 100">
+                    <svg:g app-badge-cup [score]="score.score"></svg:g>
+                </svg>
                 <div class="player">{{score.player}}</div>
             </div>
             <div #yourscore *ngIf="score.key === hs.highscores.key">
-                <div app-badge-cup [score]="score.score"></div>
+                <svg viewBox="0 0 100 100">
+                    <svg:g app-badge-cup [score]="score.score"></svg:g>
+                </svg>
                 <div *ngIf="edit">
                     <input class="playername" [(ngModel)]="hs.highscores.player" (keyup.enter)="enterPlayer()" (focusout)="enterPlayer()">
                 </div>
