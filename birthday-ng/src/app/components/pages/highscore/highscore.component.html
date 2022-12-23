@@ -9,7 +9,7 @@
                 <div class="player">{{score.player}}</div>
             </div>
             <div #yourscore *ngIf="score.key === hs.highscores.key">
-                <svg viewBox="0 0 100 100">
+                <svg viewBox="0 0 100 100" (click)="edit = true">
                     <svg:g app-badge-cup [score]="score.score"></svg:g>
                 </svg>
                 <div *ngIf="edit">

@@ -65,6 +65,15 @@ export class GameComponent implements OnInit {
     this.newRound();
   }
 
+  clickStageScore () {
+    if (this.stage < GameComponent.AUGURI.length) {
+      this.newRound();
+    } else {
+      this.showFinalScore = false;
+      this.showHighscores = true;
+    }
+  }
+
   newRound() {
     this.collected = [];
     this.baloons = [];
@@ -124,7 +133,7 @@ export class GameComponent implements OnInit {
   }
 
   delayToNewStage(time: number) {
-    if (!this.showNewRound && this.stage < GameComponent.AUGURI.length) {
+    if (!this.showNewRound) {
       this.tickers.once('newstage', time + 300, () => {
         this.showNewRound = true;
       })

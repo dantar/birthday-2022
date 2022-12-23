@@ -16,7 +16,7 @@
 
 </svg>
 
-<div *ngIf="showNewRound" class="fullsvg" (click)="newRound()">
+<div *ngIf="showNewRound" class="fullsvg" (click)="clickStageScore()">
     <svg viewBox="0 0 100 100">
         <svg:g app-badge-cup [score]="totalScore()"></svg:g>
     </svg>
