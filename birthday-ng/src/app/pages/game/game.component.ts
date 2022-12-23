@@ -69,7 +69,6 @@ export class GameComponent implements OnInit {
     if (this.stage < GameComponent.AUGURI.length) {
       this.newRound();
     } else {
-      this.audio.play('ta-dah');
       this.highscores.score(this.score);
       this.showFinalScore = false;
       this.showHighscores = true;
@@ -138,6 +137,9 @@ export class GameComponent implements OnInit {
     if (!this.showNewRound) {
       this.tickers.once('newstage', time + 300, () => {
         this.showNewRound = true;
+        if (this.stage >= GameComponent.AUGURI.length) {
+          this.audio.play('ta-dah');
+        }
       })
     }
   }
