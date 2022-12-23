@@ -13,6 +13,7 @@ export class AudioPlayService {
     this.register('pop', 'assets/pop.ogg');
     this.register('oops', 'assets/oops.ogg');
     this.register('arpeggio', 'assets/arpeggio.ogg');
+    this.register('ta-dah', 'assets/ta-dah.ogg');
   }
 
   register(name: string, src: string) {
