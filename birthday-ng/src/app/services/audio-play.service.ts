@@ -11,6 +11,8 @@ export class AudioPlayService {
   constructor() {
     this.audios = {};
     this.register('pop', 'assets/pop.ogg');
+    this.register('oops', 'assets/oops.ogg');
+    this.register('arpeggio', 'assets/arpeggio.ogg');
   }
 
   register(name: string, src: string) {

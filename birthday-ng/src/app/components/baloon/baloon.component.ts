@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GameBaloon } from 'src/app/models/baloon.model';
 import { TickersService } from 'src/app/services/tickers.service';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
-import { MoveFromTo } from 'src/app/models/animate.model';
+import { MoveFromTo, StateFromTo, TimedState } from 'src/app/models/animate.model';
 
 @Component({
   selector: '[app-baloon]',
@@ -13,8 +13,11 @@ export class BaloonComponent implements OnInit {
 
   @Input() baloon: GameBaloon;
   @Output() score = new EventEmitter<BaloonComponent>();
+  @Output() done = new EventEmitter<BaloonComponent>();
 
   position: MoveFromTo;
+  state: StateFromTo;
+  hidden: boolean;
 
   constructor(
     private tickers: TickersService,
@@ -26,6 +29,17 @@ export class BaloonComponent implements OnInit {
     .add('y', this.baloon.start.y , this.baloon.finish.y)
     ;
     this.position.go(this.baloon.time);
+    this.state = this.stateFromPattern(this.baloon.pattern);
+    this.state.go(() => {
+      this.done.emit(this);
+    });
+  }
+
+  stateFromPattern(pattern: string): StateFromTo {
+    let state = new StateFromTo(this.tickers);
+    state.add(new TimedState(this.baloon.time / 2, 'shown'));
+    state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+    return state
   }
 
   clickBaloon(event: any) {

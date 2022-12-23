@@ -124,10 +124,15 @@ export class GameComponent implements OnInit {
     this.showHighscores = !this.showHighscores;
   }
 
-  clickBaloon(event: BaloonComponent) {
+  scoreBaloon(event: BaloonComponent) {
     let baloon = event.baloon;
     this.audio.play('pop');
     this.score = this.score + baloon.score;
+    if (baloon.score < 0) {
+      this.audio.play('oops');
+    } else {
+      this.audio.play('arpeggio');
+    }
     this.baloons.splice(this.baloons.indexOf(baloon), 1);
     this.collected.push(new ScoredBaloon(baloon.score, 
       new BaloonCoordinates(event.position.values['x'].value, event.position.values['y'].value)));
@@ -135,6 +140,14 @@ export class GameComponent implements OnInit {
       this.tantiauguri = this.tantiauguri + baloon.text;
       this.prizes.push(new Prize(baloon));
     }
+    if (this.baloons.length === 0) {
+      this.delayToNewStage(0);
+    }
+  }
+
+  doneBaloon(event: BaloonComponent) {
+    let baloon = event.baloon;
+    this.baloons.splice(this.baloons.indexOf(baloon), 1);
     if (this.baloons.length === 0) {
       this.delayToNewStage(0);
     }

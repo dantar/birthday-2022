@@ -23,6 +23,49 @@ export class MinMaxValue {
 
 }
 
+export class TimedState {
+    time: number;
+    state: string;
+    constructor(time: number, state: string) {
+        this.time = time;
+        this.state = state;
+    }
+}
+
+export class StateFromTo {
+
+    tickers: TickersService;
+    uuid: string;
+    states: TimedState[];
+    current: TimedState;
+
+    constructor(tickers: TickersService) {
+        this.tickers = tickers;
+        this.uuid = uuid.v4();
+        this.states = [];
+    }
+
+    add(s: TimedState) {
+        this.states.push(s);
+    }
+
+    go(callback: ()=>void) {
+        if (this.states.length > 0) {
+            this.current = this.states.splice(0, 1)[0];
+            this.tickers.once(this.uuid, this.current.time, () => {                
+                this.go(callback);
+            });
+        } else {
+            callback();
+        }
+    }
+
+    stop() {
+        this.tickers.stop(this.uuid);
+    }
+
+}
+
 
 export class MoveFromTo {
 

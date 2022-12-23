@@ -1,7 +1,10 @@
+import { StateFromTo } from "./animate.model";
+
 export class GameBaloon {
 
     start: BaloonCoordinates;
     finish: BaloonCoordinates;
+    pattern: string;
     time: number;
 
     score: number;
