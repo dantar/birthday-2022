@@ -16,6 +16,7 @@ import { ResetGameComponent } from './components/reset-game/reset-game.component
 import { TileFlipComponent } from './components/tile-flip/tile-flip.component';
 import { PrizeComponent } from './components/prize/prize.component';
 import { CloudsComponent } from './components/clouds/clouds.component';
+import { TantiAuguriComponent } from './components/tanti-auguri/tanti-auguri.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CloudsComponent } from './components/clouds/clouds.component';
     ResetGameComponent,
     TileFlipComponent,
     PrizeComponent,
-    CloudsComponent
+    CloudsComponent,
+    TantiAuguriComponent
   ],
   imports: [
     HttpClientModule,

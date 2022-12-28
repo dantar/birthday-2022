@@ -10,6 +10,7 @@ export class GameBaloon {
     score: number;
     s: number = 1;
     text: string = '';
+    letter: AuguriLetter;
     icon: string = '';
     state: 'new' | 'ready' | 'empty' | 'full' | 'score' | 'final' | 'zoomed' = 'new';
 
@@ -23,6 +24,12 @@ export class GameBaloon {
         this.icon = '';
         this.state = 'new';
         this.score = 0;
+    }
+
+    setLetter(letter: AuguriLetter): GameBaloon {
+        this.letter = letter;
+        this.text = letter.letter;
+        return this;
     }
 
     setText(text: string): GameBaloon {
@@ -60,6 +67,32 @@ export class Prize {
     baloon: GameBaloon;
     constructor(baloon: GameBaloon) {
         this.baloon = baloon;
+    }
+}
+
+export class AuguriLetter {
+    letter: string;
+    code: string;
+    visible: boolean;
+    constructor(letter: string, code: string) {
+        this.letter = letter;
+        this.code = code;
+    }
+}
+
+export class AuguriLettersBuilder {
+    letters: AuguriLetter[];
+    constructor() {
+        this.letters = [];
+    }
+    add(letter: string): AuguriLettersBuilder {
+        let howmany = this.letters.filter(a=>a.letter === letter).length +1; 
+        this.letters.push(new AuguriLetter(letter, `${letter}${howmany}`));
+        return this;
+    }
+    addAll(text: string): AuguriLettersBuilder {
+        [...text].forEach(a => this.add(a));
+        return this;
     }
 }
 

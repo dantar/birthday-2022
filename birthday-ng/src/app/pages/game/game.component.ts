@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaloonComponent } from 'src/app/components/baloon/baloon.component';
-import { BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
+import { AuguriLetter, AuguriLettersBuilder, BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
 import { GamesCommonService } from 'src/app/services/games-common.service';
 import { HighscoresService } from 'src/app/services/highscores.service';
@@ -14,6 +14,7 @@ import { TickersService } from 'src/app/services/tickers.service';
 export class GameComponent implements OnInit {
 
   static AUGURI = 'TANTIAUGURI';
+  letters: AuguriLetter[];
   tantiauguri: string;
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
@@ -57,6 +58,7 @@ export class GameComponent implements OnInit {
   }
 
   resetGame() {
+    this.letters = new AuguriLettersBuilder().addAll(GameComponent.AUGURI).letters;
     this.tantiauguri = '';
     this.score = 0;
     this.stage = 0;
@@ -106,7 +108,7 @@ export class GameComponent implements OnInit {
   addTextBaloon(): GameBaloon {
     return this.aNewBaloon()
     .setPattern(this.patterns[0])
-    .setText(GameComponent.AUGURI.substring(this.stage-1, this.stage))
+    .setLetter(this.letters[this.stage-1])
     .setScore(5);
   }
 
@@ -169,8 +171,9 @@ export class GameComponent implements OnInit {
     this.collected.push(new ScoredBaloon(baloon.score, 
       new BaloonCoordinates(event.position.values['x'].value, event.position.values['y'].value))
       );
-    if (baloon.text != '') {
-      this.tantiauguri = this.tantiauguri + baloon.text;
+    if (baloon.letter) {
+      baloon.letter.visible = true;
+      //this.tantiauguri = this.tantiauguri + baloon.text;
       this.prizes.push(new Prize(baloon));
     }
     if (this.baloons.length === 0) {
