@@ -13,7 +13,7 @@
     <g *ngFor="let baloon of baloons" >
         <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
     </g>
-    <g app-clouds [tantiauguri]="tantiauguri"></g>
+    <g app-clouds></g>
 
 </svg>
 

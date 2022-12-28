@@ -15,7 +15,6 @@ export class GameComponent implements OnInit {
 
   static AUGURI = 'TANTIAUGURI';
   letters: AuguriLetter[];
-  tantiauguri: string;
   baloons: GameBaloon[] = [];
   streak: GameBaloon[] = [];
   collected: ScoredBaloon[];
@@ -59,7 +58,6 @@ export class GameComponent implements OnInit {
 
   resetGame() {
     this.letters = new AuguriLettersBuilder().addAll(GameComponent.AUGURI).letters;
-    this.tantiauguri = '';
     this.score = 0;
     this.stage = 0;
     this.auguri = [...GameComponent.AUGURI];
