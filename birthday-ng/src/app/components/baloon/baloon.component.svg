@@ -9,11 +9,13 @@
       </svg:clipPath>
    </svg:defs>
 
+   <svg:circle style="fill:#000000;opacity:0;" cx="0" cy="0" r="50" />
+
    <svg:g class="baloon" id="g1413">
       <svg:circle style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.38171;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke; opacity:0.1" id="path2365" cx="0" cy="0" r="50" />
       <svg:circle style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.38171;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" id="path2365" cx="0" cy="0" r="50" />
 
-      <svg:g transform="scale(0.8,0.8)">
+      <svg:g [attr.transform]="contentTransform()">
          <svg:g *ngIf="state.current.state ==='hidden'" id="hidden-prize">
             <svg:circle style="fill:#0000aa;stroke:none;stroke-width:4.8192;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;fill-opacity:1" id="path170" cx="0" cy="0" r="50" />
             <svg:text id="text1406-3-36" y="27.162285" x="-25.170963" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:83.7908px;line-height:1.25;font-family:'AR JULIAN';-inkscape-font-specification:'AR JULIAN, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.1222;" xml:space="preserve" transform="rotate(-14.999999)">

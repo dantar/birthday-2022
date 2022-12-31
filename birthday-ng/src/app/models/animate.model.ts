@@ -45,8 +45,9 @@ export class StateFromTo {
         this.states = [];
     }
 
-    add(s: TimedState) {
+    add(s: TimedState): StateFromTo {
         this.states.push(s);
+        return this;
     }
 
     go(callback: ()=>void) {
@@ -114,6 +115,88 @@ export class MoveFromTo {
         if (move.elapsed >= move.time) {
             move.tickers.stop(move.uuid);
         }
+    }
+
+}
+
+export class TimedValue {
+    value: number;
+    time: number;
+
+    constructor(time: number) {
+        this.time = time;
+    }
+
+    go(tickers: TickersService, uuid: string, callback: () => void) {
+        tickers.once(uuid, this.time, callback);
+    }
+}
+
+export class ConstantTimedValue extends TimedValue {
+    constructor(time: number, value: number) {
+        super(time);
+        this.value = value;
+    }
+}
+
+export class LinearTimedValue extends TimedValue {
+    elapsed: number;
+    valueStart: number;
+    valueFinish: number;
+    constructor(time: number, valueStart: number, valueFinish: number) {
+        super(time);
+        this.value = valueStart;
+        this.valueStart = valueStart;
+        this.valueFinish = valueFinish;
+    }
+    override go(tickers: TickersService, uuid: string, callback: () => void) {
+        this.value = this.valueStart;
+        const frame = 25;
+        this.elapsed = 0;
+        tickers.loop(uuid, frame, () => {
+            this.elapsed = this.elapsed + frame;
+            if (this.elapsed >= this.time) {
+                this.value = this.valueFinish;
+                tickers.stop(uuid);
+                callback();
+            } else {
+                this.value = this.valueStart + (this.valueFinish - this.valueStart) * this.elapsed / this.time;
+            }
+        });
+    }
+}
+
+export class GracefulFromTo {
+
+    tickers: TickersService;
+    uuid: string;
+    values: TimedValue[];
+    current: TimedValue;
+
+    constructor(tickers: TickersService) {
+        this.tickers = tickers;
+        this.uuid = uuid.v4();
+        this.values = [];
+    }
+
+    add(s: TimedValue): GracefulFromTo {
+        this.values.push(s);
+        return this;
+    }
+
+    go(callback: ()=>void) {
+        if (this.values.length > 0) {
+            this.current = this.values.splice(0, 1)[0];
+            this.current.go(this.tickers, this.uuid, () => {
+                this.go(callback);
+            });
+        } else {
+            callback();
+        }
+    }
+
+    stop() {
+        this.tickers.stop(this.uuid);
     }
 
 }

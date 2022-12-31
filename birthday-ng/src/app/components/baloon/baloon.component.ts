@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GameBaloon } from 'src/app/models/baloon.model';
 import { TickersService } from 'src/app/services/tickers.service';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
-import { MoveFromTo, StateFromTo, TimedState } from 'src/app/models/animate.model';
+import { ConstantTimedValue, GracefulFromTo, LinearTimedValue, MoveFromTo, StateFromTo, TimedState } from 'src/app/models/animate.model';
 import { endWith } from 'rxjs';
 
 @Component({
@@ -18,6 +18,7 @@ export class BaloonComponent implements OnInit {
 
   position: MoveFromTo;
   state: StateFromTo;
+  flip: GracefulFromTo;
   hidden: boolean;
 
   constructor(
@@ -30,35 +31,71 @@ export class BaloonComponent implements OnInit {
     .add('y', this.baloon.start.y , this.baloon.finish.y)
     ;
     this.position.go(this.baloon.time);
-    this.state = this.stateFromPattern(this.baloon.pattern);
+    this.initFromPattern(this.baloon.pattern);
     this.state.go(() => {
       this.done.emit(this);
     });
+    this.flip.go(() => {});
   }
 
-  stateFromPattern(pattern: string): StateFromTo {
-    let state = new StateFromTo(this.tickers);
+  initFromPattern(pattern: string) {
+    this.state = new StateFromTo(this.tickers);
+    this.flip = new GracefulFromTo(this.tickers);
+    const fliptime = 500;
     switch (pattern) {
       case 'hidden-shown-hidden':
-        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
-        state.add(new TimedState(this.baloon.time / 3, 'shown'));
-        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
+        this.state
+        .add(new TimedState(this.baloon.time / 3, 'hidden'))
+        .add(new TimedState(this.baloon.time / 3, 'shown'))
+        .add(new TimedState(this.baloon.time / 3, 'hidden'))
+        ;
+        this.flip
+        .add(new ConstantTimedValue(this.baloon.time / 3 - fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        .add(new ConstantTimedValue(this.baloon.time / 3 - 2 * fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        ;
         break;
       case 'shown-hidden-shown':
-        state.add(new TimedState(this.baloon.time / 3, 'shown'));
-        state.add(new TimedState(this.baloon.time / 3, 'hidden'));
-        state.add(new TimedState(this.baloon.time / 3, 'shown'));
+        this.state
+        .add(new TimedState(this.baloon.time / 3, 'shown'))
+        .add(new TimedState(this.baloon.time / 3, 'hidden'))
+        .add(new TimedState(this.baloon.time / 3, 'shown'))
+        ;
+        this.flip
+        .add(new ConstantTimedValue(this.baloon.time / 3 - fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        .add(new ConstantTimedValue(this.baloon.time / 3 - 2 * fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        ;
         break;
       case 'hidden-first':
-        state.add(new TimedState(this.baloon.time / 2, 'shown'));
-        state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+        this.state
+        .add(new TimedState(this.baloon.time / 2, 'shown'))
+        .add(new TimedState(this.baloon.time / 2, 'hidden'))
+        ;
+        this.flip
+        .add(new ConstantTimedValue(this.baloon.time / 2 - fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        ;
         break;
       case 'shown-first':
       default:
-        state.add(new TimedState(this.baloon.time / 2, 'shown'));
-        state.add(new TimedState(this.baloon.time / 2, 'hidden'));
+        this.state
+        .add(new TimedState(this.baloon.time / 2, 'hidden'))
+        .add(new TimedState(this.baloon.time / 2, 'shown'))
+        ;
+        this.flip
+        .add(new ConstantTimedValue(this.baloon.time / 2 - fliptime, 1.0))
+        .add(new LinearTimedValue(fliptime, 1.0, 0.0))
+        .add(new LinearTimedValue(fliptime, 0.0, 1.0))
+        ;
     }
-    return state
   }
 
   clickBaloon(event: any) {
@@ -74,6 +111,10 @@ export class BaloonComponent implements OnInit {
 
   transform(): string {
     return `translate(${this.position.values['x'].value},${this.position.values['y'].value}) scale(0.15,0.15)`;
+  }
+
+  contentTransform(): string {
+    return `scale(0.8,0.8) scale(${this.flip.current.value}, 1.0)`;
   }
 
 }
