@@ -118,11 +118,15 @@ export class BaloonComponent implements OnInit {
   }
 
   transform(): string {
-    return `translate(${this.position.values['x'].value},${this.position.values['y'].value}) scale(0.15,0.15)`;
+    return `translate(${
+      this.position && this.position.values['x']? this.position.values['x'].value: 50
+    },${
+      this.position && this.position.values['y']? this.position.values['y'].value: 50
+    }) scale(0.15,0.15)`;
   }
 
   contentTransform(): string {
-    return `scale(0.8,0.8) scale(${this.flip.current.value}, 1.0)`;
+    return `scale(0.8,0.8) scale(${this.flip && this.flip.current ? this.flip.current.value: 1.0}, 1.0)`;
   }
 
 }

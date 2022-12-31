@@ -87,7 +87,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.showNewRound = false;
     this.stage = this.stage +1;
     this.streak = [];
-    for (let index = 0; index < this.stage; index++) {
+    for (let index = 0; index < this.stage +2; index++) {
       if (index === 0) {
         this.streak.push(this.addTextBaloon());
       } else {

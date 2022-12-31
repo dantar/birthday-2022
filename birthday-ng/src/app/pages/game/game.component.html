@@ -6,7 +6,7 @@
         <svg:g app-badge-cup [sign]="true" [score]="item.score"></svg:g>
     </g>
 
-    <g *ngFor="let baloon of baloons" >
+    <g *ngFor="let baloon of baloons">
         <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
     </g>
     <g app-clouds></g>
