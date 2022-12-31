@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaloonComponent } from 'src/app/components/baloon/baloon.component';
 import { AuguriLetter, AuguriLettersBuilder, BaloonCoordinates, GameBaloon, Prize } from 'src/app/models/baloon.model';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
@@ -11,7 +12,7 @@ import { TickersService } from 'src/app/services/tickers.service';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   static AUGURI = 'TANTIAUGURI';
   letters: AuguriLetter[];
@@ -42,6 +43,8 @@ export class GameComponent implements OnInit {
     public games: GamesCommonService,
     public tickers: TickersService,
     public audio: AudioPlayService,
+    private router: Router,
+    private changes: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +53,9 @@ export class GameComponent implements OnInit {
     this.showFinalScore = false;
     this.showNewRound = true;
     this.resetGame();
+  }
+
+  ngOnDestroy(): void {
   }
 
   totalScore(): number {
@@ -85,8 +91,11 @@ export class GameComponent implements OnInit {
       if (index === 0) {
         this.streak.push(this.addTextBaloon());
       } else {
-        this.streak.push(this.addSunBaloon());
-        this.streak.push(this.addRainBaloon());
+        if (index % 2 === 0) {
+          this.streak.push(this.addRainBaloon());
+        } else {
+          this.streak.push(this.addSunBaloon());
+        }
       }
     }
     this.games.shuffle(this.streak);
@@ -193,6 +202,10 @@ export class GameComponent implements OnInit {
 
   transformCollected(item: ScoredBaloon): string {
     return `translate(${item.position.x},${item.position.y}) scale(0.15,0.15) translate(-50,-50)`;
+  }
+
+  exitGame() {
+    this.router.navigate(['']);
   }
 
 }

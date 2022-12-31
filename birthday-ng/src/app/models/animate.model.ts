@@ -1,5 +1,6 @@
 import { TickersService } from "../services/tickers.service";
 import * as uuid from 'uuid';
+import { ChangeDetectorRef, NgZone } from "@angular/core";
 
 export class MinMaxValue {
 
@@ -47,18 +48,22 @@ export class StateFromTo {
 
     add(s: TimedState): StateFromTo {
         this.states.push(s);
+        this.current = this.states[0];
         return this;
     }
 
-    go(callback: ()=>void) {
-        if (this.states.length > 0) {
-            this.current = this.states.splice(0, 1)[0];
-            this.tickers.once(this.uuid, this.current.time, () => {                
-                this.go(callback);
-            });
-        } else {
-            callback();
+    go(zone: NgZone, callback: ()=>void) {
+        zone.run(() => {
+            if (this.states.length > 0) {
+                this.current = this.states.splice(0, 1)[0];
+                this.tickers.once(this.uuid, this.current.time, () => {                
+                    this.go(zone, callback);
+                });
+            } else {
+                callback();
+            }
         }
+        );
     }
 
     stop() {
@@ -100,21 +105,19 @@ export class MoveFromTo {
         return this;
     }
 
-    go(time: number) {
+    go(zone: NgZone, time: number) {
         Object.keys(this.values).forEach(key => this.values[key].reset());
         this.elapsed = 0;
         this.time = time;
         this.tickers.loop(this.uuid, this.frame, () => {
-            this.updatePosition(this);
+            zone.run(() => {
+                this.elapsed = Math.min(this.time, this.elapsed + this.frame);
+                Object.keys(this.values).forEach(key => this.values[key].update(this.time, this.elapsed));
+                if (this.elapsed >= this.time) {
+                    this.tickers.stop(this.uuid);
+                }
+            });
         });
-    }
-
-    updatePosition(move: MoveFromTo) {
-        move.elapsed = Math.min(this.time, move.elapsed + move.frame);
-        Object.keys(this.values).forEach(key => this.values[key].update(this.time, this.elapsed));
-        if (move.elapsed >= move.time) {
-            move.tickers.stop(move.uuid);
-        }
     }
 
 }
@@ -127,15 +130,22 @@ export class TimedValue {
         this.time = time;
     }
 
-    go(tickers: TickersService, uuid: string, callback: () => void) {
+    go(zone:NgZone, tickers: TickersService, uuid: string, callback: () => void) {
         tickers.once(uuid, this.time, callback);
     }
 }
 
 export class ConstantTimedValue extends TimedValue {
+    firstValue: number;
     constructor(time: number, value: number) {
         super(time);
-        this.value = value;
+        this.firstValue = value;
+    }
+    override go(zone:NgZone, tickers: TickersService, uuid: string, callback: () => void) {
+        this.value = this.firstValue;
+        tickers.once(uuid, this.time, () => {
+            zone.run(callback);
+        });
     }
 }
 
@@ -149,19 +159,21 @@ export class LinearTimedValue extends TimedValue {
         this.valueStart = valueStart;
         this.valueFinish = valueFinish;
     }
-    override go(tickers: TickersService, uuid: string, callback: () => void) {
+    override go(zone:NgZone, tickers: TickersService, uuid: string, callback: () => void) {
         this.value = this.valueStart;
         const frame = 25;
         this.elapsed = 0;
         tickers.loop(uuid, frame, () => {
-            this.elapsed = this.elapsed + frame;
-            if (this.elapsed >= this.time) {
-                this.value = this.valueFinish;
-                tickers.stop(uuid);
-                callback();
-            } else {
-                this.value = this.valueStart + (this.valueFinish - this.valueStart) * this.elapsed / this.time;
-            }
+            zone.run(() => {
+                this.elapsed = this.elapsed + frame;
+                if (this.elapsed >= this.time) {
+                    this.value = this.valueFinish;
+                    tickers.stop(uuid);
+                    callback();
+                } else {
+                    this.value = this.valueStart + (this.valueFinish - this.valueStart) * this.elapsed / this.time;
+                }
+            });
         });
     }
 }
@@ -184,15 +196,17 @@ export class GracefulFromTo {
         return this;
     }
 
-    go(callback: ()=>void) {
-        if (this.values.length > 0) {
-            this.current = this.values.splice(0, 1)[0];
-            this.current.go(this.tickers, this.uuid, () => {
-                this.go(callback);
-            });
-        } else {
-            callback();
-        }
+    go(zone: NgZone, callback: ()=>void) {
+        zone.run(() => {
+            if (this.values.length > 0) {
+                this.current = this.values.splice(0, 1)[0];
+                this.current.go(zone, this.tickers, this.uuid, () => {
+                    this.go(zone, callback);
+                });
+            } else {
+                callback();
+            }
+        });
     }
 
     stop() {

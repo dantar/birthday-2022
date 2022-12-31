@@ -9,7 +9,7 @@
       </svg:clipPath>
    </svg:defs>
 
-   <svg:circle style="fill:#000000;opacity:0;" cx="0" cy="0" r="50" />
+   <svg:circle style="fill:#ffffff;opacity:0.1;" cx="0" cy="0" r="50" />
 
    <svg:g class="baloon" id="g1413">
       <svg:circle style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.38171;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke; opacity:0.1" id="path2365" cx="0" cy="0" r="50" />

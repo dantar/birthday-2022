@@ -9,10 +9,6 @@
     <g *ngFor="let baloon of baloons" >
         <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
     </g>
-
-    <g *ngFor="let baloon of baloons" >
-        <g app-baloon [baloon]="baloon" (score)="scoreBaloon($event)" (done)="doneBaloon($event)"></g>
-    </g>
     <g app-clouds></g>
 
 </svg>
@@ -24,7 +20,7 @@
 </div>
 
 <div class="panel-menu-list bottom-right-menu">
-    <div class="panel-menu-item button menu" (click)="resetGame()">
+    <div class="panel-menu-item button menu" (click)="exitGame()">
         <div app-reset-game></div>
     </div>
 </div>

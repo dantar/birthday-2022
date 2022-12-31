@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
 import { GameBaloon } from 'src/app/models/baloon.model';
 import { TickersService } from 'src/app/services/tickers.service';
 import { AudioPlayService } from 'src/app/services/audio-play.service';
@@ -23,19 +23,22 @@ export class BaloonComponent implements OnInit {
 
   constructor(
     private tickers: TickersService,
-    private audio: AudioPlayService,) { }
+    private audio: AudioPlayService,
+    private changes: ChangeDetectorRef,
+    private zone: NgZone,
+    ) { }
 
   ngOnInit(): void {
     this.position = new MoveFromTo(this.tickers)
     .add('x', this.baloon.start.x , this.baloon.finish.x)
     .add('y', this.baloon.start.y , this.baloon.finish.y)
     ;
-    this.position.go(this.baloon.time);
     this.initFromPattern(this.baloon.pattern);
-    this.state.go(() => {
+    this.state.go(this.zone, () => {
       this.done.emit(this);
     });
-    this.flip.go(() => {});
+    this.position.go(this.zone, this.baloon.time);
+    this.flip.go(this.zone, () => {});
   }
 
   initFromPattern(pattern: string) {
@@ -43,6 +46,10 @@ export class BaloonComponent implements OnInit {
     this.flip = new GracefulFromTo(this.tickers);
     const fliptime = 500;
     switch (pattern) {
+      case 'shown':
+        this.state.add(new TimedState(this.baloon.time, 'shown'));
+        this.flip.add(new ConstantTimedValue(this.baloon.time, 1.0));
+        break;
       case 'hidden-shown-hidden':
         this.state
         .add(new TimedState(this.baloon.time / 3, 'hidden'))
@@ -75,8 +82,8 @@ export class BaloonComponent implements OnInit {
         break;
       case 'hidden-first':
         this.state
-        .add(new TimedState(this.baloon.time / 2, 'shown'))
         .add(new TimedState(this.baloon.time / 2, 'hidden'))
+        .add(new TimedState(this.baloon.time / 2, 'shown'))
         ;
         this.flip
         .add(new ConstantTimedValue(this.baloon.time / 2 - fliptime, 1.0))
@@ -87,11 +94,12 @@ export class BaloonComponent implements OnInit {
       case 'shown-first':
       default:
         this.state
-        .add(new TimedState(this.baloon.time / 2, 'hidden'))
         .add(new TimedState(this.baloon.time / 2, 'shown'))
+        .add(new TimedState(this.baloon.time / 2, 'hidden'))
         ;
         this.flip
         .add(new ConstantTimedValue(this.baloon.time / 2 - fliptime, 1.0))
+        //.add(new LinearTimedValue(this.baloon.time / 2 - fliptime, 1.0, 1.0))
         .add(new LinearTimedValue(fliptime, 1.0, 0.0))
         .add(new LinearTimedValue(fliptime, 0.0, 1.0))
         ;
